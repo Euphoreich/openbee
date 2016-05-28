@@ -2874,12 +2874,6 @@ end
 function selectPair(mutations, scorers, catalog, targetSpecies)
   logLine("targetting "..targetSpecies)
   local baseChance = 0
-  print('getBeeParents')
-  print('bar')
-  print(targetSpecies)
-  print(getBeeBreedingData())
-  print(getBeeParents(targetSpecies))
-  print('foo')
   if #getBeeParents(targetSpecies) > 0 then
     local parents = getBeeParents(targetSpecies)[1]
     baseChance = parents.chance
@@ -2887,7 +2881,6 @@ function selectPair(mutations, scorers, catalog, targetSpecies)
       logLine("    ", s)
     end
   end
-  print('mateCombos')
   local mateCombos = choose(catalog.princesses, catalog.drones)
   local mates = {}
   local haveReference = (catalog.referencePrincessesBySpecies[targetSpecies] ~= nil and
@@ -2907,7 +2900,6 @@ function selectPair(mutations, scorers, catalog, targetSpecies)
       table.insert(mates, newMates)
     end
   end
-  print('mates gt 0?')
   if #mates > 0 then
     table.sort(mates, compareMates)
     for i = math.min(#mates, 10), 1, -1 do
@@ -2979,10 +2971,8 @@ function isPureBred(bee1, bee2, targetSpecies)
 end
 
 function breedTargetSpecies(mutations, inv, apiary, scorers, targetSpecies)
-  print('foo')
   local catalog = catalogBees(inv, scorers)
   while true do
-    print('in while')
     if #catalog.princesses == 0 then
       log("Please add more princesses and press [Enter]")
       io.read("*l")
@@ -2992,14 +2982,11 @@ function breedTargetSpecies(mutations, inv, apiary, scorers, targetSpecies)
       io.read("*l")
       catalog = catalogBees(inv, scorers)
     else
-      print('getting mates')
       local mates = selectPair(mutations, scorers, catalog, targetSpecies)
       if mates ~= nil then
-        print('mates nil')
         if isPureBred(mates.princess, mates.drone, targetSpecies) then
           break
         else
-          print('breeding bees')
           breedBees(inv, apiary, mates.princess, mates.drone)
           catalog = catalogBees(inv, scorers)
         end
