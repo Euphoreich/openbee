@@ -2862,8 +2862,6 @@ end
 
 function getBeeParents(targetSpecies)
   for _, bee in pairs(getBeeBreedingData()) do
-    print('Looking for')
-    print(targetSpecies)
     if bee.result == targetSpecies then
       return bee
     end
