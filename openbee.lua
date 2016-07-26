@@ -95,10 +95,10 @@ function log(msg)
 end
 
 function logLine(...)
-  for i, msg in ipairs(arg) do
-    if msg == nil then
-      msg = ""
+  if msg == nil then
+    msg = ""
     end
+  for i, msg in ipairs(arg) do
     logFile.write(msg)
     io.write(msg)
   end
